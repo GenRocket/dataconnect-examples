@@ -54,3 +54,23 @@ def test_rejects_non_https_service_url(tmp_path: Path) -> None:
 
     with pytest.raises(ValueError, match="absolute HTTPS"):
         DataConnectConfig.from_env(env_file)
+
+
+def test_rejects_mcp_url_without_endpoint_path(tmp_path: Path) -> None:
+    env_file = tmp_path / ".env"
+    env_file.write_text(
+        "\n".join(
+            (
+                "DATACONNECT_ORG_EXTERNAL_ID=org",
+                "DATACONNECT_CLIENT_EXTERNAL_ID=client",
+                "DATACONNECT_USER_EXTERNAL_ID=user",
+                "DATACONNECT_ORG_API_KEY=secret",
+                "DATACONNECT_REST_BASE_URL=https://rest.example.test",
+                "DATACONNECT_MCP_URL=https://mcp.example.test",
+            )
+        ),
+        encoding="utf-8",
+    )
+
+    with pytest.raises(ValueError, match="include the /mcp endpoint path"):
+        DataConnectConfig.from_env(env_file)

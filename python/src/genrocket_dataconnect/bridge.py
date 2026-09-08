@@ -46,6 +46,13 @@ def _client() -> DataConnectMcpClient:
     return _runtime
 
 
+async def _run_server(rest: DataConnectRestClient) -> None:
+    try:
+        await server.run_stdio_async()
+    finally:
+        await rest.aclose()
+
+
 @server.tool()
 async def generate_data(
     domain: str,
@@ -83,10 +90,7 @@ def main(argv: Sequence[str] | None = None) -> None:
     rest = DataConnectRestClient(config)
     global _runtime
     _runtime = DataConnectMcpClient(rest)
-    try:
-        server.run(transport="stdio")
-    finally:
-        asyncio.run(rest.aclose())
+    asyncio.run(_run_server(rest))
 
 
 if __name__ == "__main__":

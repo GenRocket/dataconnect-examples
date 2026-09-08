@@ -35,6 +35,12 @@ public sealed record DataConnectConfig(
 
         var rest = RequireHttps(values["DATACONNECT_REST_BASE_URL"], "DATACONNECT_REST_BASE_URL");
         var mcp = RequireHttps(values["DATACONNECT_MCP_URL"], "DATACONNECT_MCP_URL");
+        if (!mcp.AbsolutePath.TrimEnd('/').EndsWith("/mcp", StringComparison.Ordinal))
+        {
+            throw new InvalidOperationException(
+                "DATACONNECT_MCP_URL must include the /mcp endpoint path");
+        }
+
         return new DataConnectConfig(
             values["DATACONNECT_ORG_EXTERNAL_ID"],
             values["DATACONNECT_CLIENT_EXTERNAL_ID"],

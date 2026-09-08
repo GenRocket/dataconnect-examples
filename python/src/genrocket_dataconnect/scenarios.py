@@ -8,7 +8,7 @@ from .models import Attribute, GenerateRequest, Generator, Receiver
 def explicit_request(loop_count: int = 3) -> GenerateRequest:
     return GenerateRequest(
         domain="Customer",
-        industry="Financial Services",
+        industry="Financial",
         loop_count=loop_count,
         attributes=(
             Attribute("customerId", "String", generators=(Generator("UUIDGen"),)),

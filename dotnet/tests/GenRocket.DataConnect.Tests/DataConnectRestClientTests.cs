@@ -90,6 +90,45 @@ public sealed class DataConnectRestClientTests
         Assert.False(value.ContainsKey("receivers"));
     }
 
+    [Fact]
+    public void RejectsMcpUrlWithoutEndpointPath()
+    {
+        var path = Path.GetTempFileName();
+        try
+        {
+            File.WriteAllLines(path,
+            [
+                "DATACONNECT_ORG_EXTERNAL_ID=org",
+                "DATACONNECT_CLIENT_EXTERNAL_ID=client",
+                "DATACONNECT_USER_EXTERNAL_ID=user",
+                "DATACONNECT_ORG_API_KEY=secret",
+                "DATACONNECT_REST_BASE_URL=https://rest.example.test",
+                "DATACONNECT_MCP_URL=https://mcp.example.test",
+            ]);
+
+            var error = Assert.Throws<InvalidOperationException>(
+                () => DataConnectConfig.FromEnvironment(path));
+
+            Assert.Contains("include the /mcp endpoint path", error.Message);
+        }
+        finally
+        {
+            File.Delete(path);
+        }
+    }
+
+    [Fact]
+    public void FilePayloadUsesReceiverNameAndFileNameParameter()
+    {
+        var receivers = Assert.IsType<System.Text.Json.Nodes.JsonArray>(
+            Scenarios.File("XMLFileReceiver", 1).ToJson()["receivers"]);
+        var receiver = Assert.IsType<System.Text.Json.Nodes.JsonObject>(receivers[0]);
+        var parameters = Assert.IsType<System.Text.Json.Nodes.JsonObject>(receiver["parameters"]);
+
+        Assert.Equal("XMLFileReceiver", receiver["receiverName"]?.GetValue<string>());
+        Assert.Equal("dataconnect-output.xml", parameters["fileName"]?.GetValue<string>());
+    }
+
     private static DataConnectConfig Config() => new(
         "org",
         "client",

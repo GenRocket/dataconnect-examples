@@ -44,8 +44,16 @@ class Attribute:
 class Receiver:
     name: str
 
-    def to_dict(self) -> dict[str, str]:
-        return {"name": self.name}
+    def to_dict(self) -> dict[str, Any]:
+        file_names = {
+            "DelimitedFileReceiver": "dataconnect-output.csv",
+            "JSONFileReceiver": "dataconnect-output.json",
+            "XMLFileReceiver": "dataconnect-output.xml",
+        }
+        return {
+            "receiverName": self.name,
+            "parameters": {"fileName": file_names.get(self.name, "dataconnect-output.data")},
+        }
 
 
 @dataclass(frozen=True, slots=True)

@@ -51,6 +51,7 @@ class DataConnectConfig:
             raise ValueError("Missing required configuration: " + ", ".join(missing))
         cls._require_https(values["DATACONNECT_REST_BASE_URL"], "DATACONNECT_REST_BASE_URL")
         cls._require_https(values["DATACONNECT_MCP_URL"], "DATACONNECT_MCP_URL")
+        cls._require_mcp_path(values["DATACONNECT_MCP_URL"])
         return cls(
             org_external_id=values["DATACONNECT_ORG_EXTERNAL_ID"],
             client_external_id=values["DATACONNECT_CLIENT_EXTERNAL_ID"],
@@ -65,6 +66,11 @@ class DataConnectConfig:
         parsed = urlparse(value)
         if parsed.scheme != "https" or not parsed.netloc:
             raise ValueError(f"{name} must be an absolute HTTPS URL")
+
+    @staticmethod
+    def _require_mcp_path(value: str) -> None:
+        if not urlparse(value).path.rstrip("/").endswith("/mcp"):
+            raise ValueError("DATACONNECT_MCP_URL must include the /mcp endpoint path")
 
     def login_payload(self) -> dict[str, str]:
         return {

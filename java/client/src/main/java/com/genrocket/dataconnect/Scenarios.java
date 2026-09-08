@@ -12,7 +12,7 @@ public final class Scenarios {
         List.of(
             AttributeSpec.generated("customerId", "String", "UUIDGen"),
             AttributeSpec.generated("email", "String", "EmailGen")),
-        "Financial Services",
+        "Financial",
         null,
         List.of());
   }

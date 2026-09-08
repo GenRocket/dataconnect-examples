@@ -13,5 +13,10 @@
       "description": "A valid customer email address"
     }
   ],
-  "receivers": [{ "name": "JSONFileReceiver" }]
+  "receivers": [
+    {
+      "receiverName": "JSONFileReceiver",
+      "parameters": { "fileName": "dataconnect-output.json" }
+    }
+  ]
 }

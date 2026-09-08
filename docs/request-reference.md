@@ -26,7 +26,8 @@ Confirm generator names against discovery rather than treating example values
 as a permanent catalog.
 
 REST additionally accepts `context` and a `receivers` array containing exactly
-one receiver. These REST-only receiver mappings are implemented:
+one receiver. Each receiver supplies its `receiverName` and a
+`parameters.fileName` value. These REST-only receiver mappings are implemented:
 
 | CLI value | Receiver | Response content type |
 |---|---|---|

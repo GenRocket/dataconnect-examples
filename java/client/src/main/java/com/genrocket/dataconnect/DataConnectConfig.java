@@ -37,6 +37,7 @@ public record DataConnectConfig(
     }
     requireHttps(values.get("DATACONNECT_REST_BASE_URL"), "DATACONNECT_REST_BASE_URL");
     requireHttps(values.get("DATACONNECT_MCP_URL"), "DATACONNECT_MCP_URL");
+    requireMcpPath(values.get("DATACONNECT_MCP_URL"));
     return new DataConnectConfig(
         values.get("DATACONNECT_ORG_EXTERNAL_ID"),
         values.get("DATACONNECT_CLIENT_EXTERNAL_ID"),
@@ -84,6 +85,13 @@ public record DataConnectConfig(
     URI uri = URI.create(value);
     if (!"https".equalsIgnoreCase(uri.getScheme()) || uri.getHost() == null) {
       throw new IllegalArgumentException(name + " must be an absolute HTTPS URL");
+    }
+  }
+
+  private static void requireMcpPath(String value) {
+    String path = URI.create(value).getPath().replaceFirst("/+$", "");
+    if (!path.endsWith("/mcp")) {
+      throw new IllegalArgumentException("DATACONNECT_MCP_URL must include the /mcp endpoint path");
     }
   }
 

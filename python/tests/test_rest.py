@@ -94,7 +94,12 @@ async def test_returns_file_bytes_without_json_decoding() -> None:
         if request.url.path == "/daas/login":
             return httpx.Response(200, json={"success": True, "token": "jwt"})
         payload = json.loads(request.content)
-        assert payload["receivers"] == [{"name": "DelimitedFileReceiver"}]
+        assert payload["receivers"] == [
+            {
+                "receiverName": "DelimitedFileReceiver",
+                "parameters": {"fileName": "dataconnect-output.csv"},
+            }
+        ]
         return httpx.Response(200, content=b"id\n1\n", headers={"content-type": "text/plain"})
 
     http = httpx.AsyncClient(transport=httpx.MockTransport(handler))

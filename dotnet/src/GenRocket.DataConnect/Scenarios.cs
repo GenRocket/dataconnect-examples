@@ -9,7 +9,7 @@ public static class Scenarios
             new("customerId", "String", Generators: [new("UUIDGen")]),
             new("email", "String", Generators: [new("EmailGen")]),
         ],
-        Industry: "Financial Services");
+        Industry: "Financial");
 
     public static GenerateRequest Inferred(int count = 3) => new(
         "Customer",

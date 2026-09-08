@@ -48,7 +48,21 @@ public sealed record AttributeSpec(
 
 public sealed record ReceiverSpec(string Name)
 {
-    internal JsonObject ToJson() => new() { ["name"] = Name };
+    internal JsonObject ToJson()
+    {
+        var fileName = Name switch
+        {
+            "DelimitedFileReceiver" => "dataconnect-output.csv",
+            "JSONFileReceiver" => "dataconnect-output.json",
+            "XMLFileReceiver" => "dataconnect-output.xml",
+            _ => "dataconnect-output.data",
+        };
+        return new JsonObject
+        {
+            ["receiverName"] = Name,
+            ["parameters"] = new JsonObject { ["fileName"] = fileName },
+        };
+    }
 }
 
 public sealed record GenerateRequest(
