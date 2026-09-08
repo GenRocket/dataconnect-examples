@@ -1,0 +1,17 @@
+{
+  "domain": "Customer",
+  "industry": "Financial Services",
+  "loopCount": 3,
+  "attributes": [
+    {
+      "name": "customerId",
+      "dataType": "String",
+      "generator": [{ "name": "UUIDGen" }]
+    },
+    {
+      "name": "email",
+      "dataType": "String",
+      "description": "A realistic customer email address"
+    }
+  ]
+}

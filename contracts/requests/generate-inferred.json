@@ -1,0 +1,16 @@
+{
+  "domain": "Customer",
+  "loopCount": 3,
+  "attributes": [
+    {
+      "name": "fullName",
+      "dataType": "String",
+      "description": "A realistic full name for an adult customer"
+    },
+    {
+      "name": "email",
+      "dataType": "String",
+      "description": "An email address derived from a person's name"
+    }
+  ]
+}

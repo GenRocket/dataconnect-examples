@@ -1,0 +1,7 @@
+{
+  "success": true,
+  "generators": [
+    { "name": "EmailGen" },
+    { "name": "UUIDGen" }
+  ]
+}

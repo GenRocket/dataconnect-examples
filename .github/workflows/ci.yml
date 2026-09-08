@@ -1,0 +1,95 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches: [master]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  contracts:
+    name: Contracts and repository checks
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Validate canonical JSON
+        run: python -m json.tool contracts/requests/login.json >/dev/null && find contracts -name '*.json' -print0 | xargs -0 -n1 python -m json.tool >/dev/null
+      - name: Reject committed secrets and private guide artifacts
+        run: |
+          if git ls-files | rg '(^|/)\.env$|\.pem$|\.key$|GenRocket DataConnect.*\.pdf$'; then
+            echo "A secret-bearing file or private guide artifact is tracked."
+            exit 1
+          fi
+
+  python:
+    name: Python ${{ matrix.python-version }}
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.11", "3.13"]
+    defaults:
+      run:
+        working-directory: python
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v6
+        with:
+          version: "0.11.2"
+          python-version: ${{ matrix.python-version }}
+          enable-cache: true
+      - run: uv sync --extra dev --locked
+      - run: uv run ruff check .
+      - run: uv run ruff format --check .
+      - run: uv run mypy
+      - run: uv run pytest
+      - run: uv run dataconnect-example rest explicit --dry-run
+      - run: uv run dataconnect-example mcp explicit --dry-run
+
+  java:
+    name: Java ${{ matrix.java-version }}
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        java-version: ["17", "21"]
+    defaults:
+      run:
+        working-directory: java
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: ${{ matrix.java-version }}
+          cache: maven
+      - run: ./mvnw -B verify
+      - run: java -jar examples/target/dataconnect-examples.jar rest explicit --dry-run
+      - run: java -jar examples/target/dataconnect-examples.jar mcp explicit --dry-run
+
+  dotnet:
+    name: .NET 10
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: dotnet
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: "10.0.x"
+      - run: dotnet restore DataConnectExamples.sln --locked-mode
+      - run: dotnet build DataConnectExamples.sln -c Release --no-restore
+      - run: dotnet format DataConnectExamples.sln --verify-no-changes --no-restore
+      - run: dotnet test DataConnectExamples.sln -c Release --no-build
+      - run: dotnet run --project src/GenRocket.DataConnect.Examples --no-build -c Release -- rest explicit --dry-run
+      - run: dotnet run --project src/GenRocket.DataConnect.Examples --no-build -c Release -- mcp explicit --dry-run

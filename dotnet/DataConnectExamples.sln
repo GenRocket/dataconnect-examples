@@ -1,0 +1,36 @@
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GenRocket.DataConnect", "src\GenRocket.DataConnect\GenRocket.DataConnect.csproj", "{A2615EE8-1A16-468B-BB9F-72746360C5D1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GenRocket.DataConnect.Examples", "src\GenRocket.DataConnect.Examples\GenRocket.DataConnect.Examples.csproj", "{66BB9376-7967-42D8-91C9-4F773BBE2A50}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GenRocket.DataConnect.Bridge", "src\GenRocket.DataConnect.Bridge\GenRocket.DataConnect.Bridge.csproj", "{7B975EE0-7982-4DA9-807B-870144129078}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GenRocket.DataConnect.Tests", "tests\GenRocket.DataConnect.Tests\GenRocket.DataConnect.Tests.csproj", "{4D035195-A60D-4A30-B571-224871B81BFD}"
+EndProject
+Global
+  GlobalSection(SolutionConfigurationPlatforms) = preSolution
+    Debug|Any CPU = Debug|Any CPU
+    Release|Any CPU = Release|Any CPU
+  EndGlobalSection
+  GlobalSection(ProjectConfigurationPlatforms) = postSolution
+    {A2615EE8-1A16-468B-BB9F-72746360C5D1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+    {A2615EE8-1A16-468B-BB9F-72746360C5D1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+    {A2615EE8-1A16-468B-BB9F-72746360C5D1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+    {A2615EE8-1A16-468B-BB9F-72746360C5D1}.Release|Any CPU.Build.0 = Release|Any CPU
+    {66BB9376-7967-42D8-91C9-4F773BBE2A50}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+    {66BB9376-7967-42D8-91C9-4F773BBE2A50}.Debug|Any CPU.Build.0 = Debug|Any CPU
+    {66BB9376-7967-42D8-91C9-4F773BBE2A50}.Release|Any CPU.ActiveCfg = Release|Any CPU
+    {66BB9376-7967-42D8-91C9-4F773BBE2A50}.Release|Any CPU.Build.0 = Release|Any CPU
+    {7B975EE0-7982-4DA9-807B-870144129078}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+    {7B975EE0-7982-4DA9-807B-870144129078}.Debug|Any CPU.Build.0 = Debug|Any CPU
+    {7B975EE0-7982-4DA9-807B-870144129078}.Release|Any CPU.ActiveCfg = Release|Any CPU
+    {7B975EE0-7982-4DA9-807B-870144129078}.Release|Any CPU.Build.0 = Release|Any CPU
+    {4D035195-A60D-4A30-B571-224871B81BFD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+    {4D035195-A60D-4A30-B571-224871B81BFD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+    {4D035195-A60D-4A30-B571-224871B81BFD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+    {4D035195-A60D-4A30-B571-224871B81BFD}.Release|Any CPU.Build.0 = Release|Any CPU
+  EndGlobalSection
+EndGlobal

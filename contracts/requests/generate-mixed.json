@@ -1,0 +1,28 @@
+{
+  "domain": "Patient",
+  "industry": "Healthcare",
+  "loopCount": 3,
+  "context": "Generate internally consistent outpatient registration data",
+  "attributes": [
+    {
+      "name": "patientId",
+      "dataType": "String",
+      "generator": [{ "name": "UUIDGen" }]
+    },
+    {
+      "name": "fullName",
+      "dataType": "String",
+      "description": "An adult patient's full name"
+    },
+    {
+      "name": "status",
+      "dataType": "String",
+      "listOfOptions": ["ACTIVE", "INACTIVE"]
+    },
+    {
+      "name": "medicalRecordNumber",
+      "dataType": "String",
+      "regex": "MRN-[0-9]{8}"
+    }
+  ]
+}

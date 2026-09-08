@@ -1,0 +1,11 @@
+{
+  "domain": "Order",
+  "loopCount": 3,
+  "attributes": [
+    {
+      "name": "status",
+      "dataType": "String",
+      "listOfOptions": ["PENDING", "PAID", "SHIPPED"]
+    }
+  ]
+}

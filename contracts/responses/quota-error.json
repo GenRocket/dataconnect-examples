@@ -1,0 +1,5 @@
+{
+  "success": false,
+  "errorCode": "QUOTA_EXCEEDED",
+  "message": "The DataConnect quota is exhausted."
+}

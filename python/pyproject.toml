@@ -1,0 +1,47 @@
+[build-system]
+requires = ["hatchling==1.27.0"]
+build-backend = "hatchling.build"
+
+[project]
+name = "genrocket-dataconnect-examples"
+version = "0.1.0"
+description = "Python examples for GenRocket DataConnect REST and MCP"
+readme = "README.md"
+requires-python = ">=3.11"
+license = "Apache-2.0"
+dependencies = [
+  "httpx==0.28.1",
+  "mcp==2.2.0",
+]
+
+[project.optional-dependencies]
+dev = [
+  "mypy==1.18.2",
+  "pytest==8.4.2",
+  "pytest-asyncio==1.2.0",
+  "respx==0.22.0",
+  "ruff==0.13.2",
+]
+
+[project.scripts]
+dataconnect-example = "genrocket_dataconnect.cli:main"
+dataconnect-mcp-bridge = "genrocket_dataconnect.bridge:main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/genrocket_dataconnect"]
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+testpaths = ["tests"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B", "ASYNC"]
+
+[tool.mypy]
+python_version = "3.11"
+strict = true
+packages = ["genrocket_dataconnect"]

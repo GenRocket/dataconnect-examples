@@ -1,0 +1,5 @@
+{
+  "success": false,
+  "errorCode": "INVALID_REQUEST",
+  "message": "The request is not valid."
+}

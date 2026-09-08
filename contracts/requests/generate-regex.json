@@ -1,0 +1,11 @@
+{
+  "domain": "Account",
+  "loopCount": 3,
+  "attributes": [
+    {
+      "name": "accountCode",
+      "dataType": "String",
+      "regex": "ACCT-[0-9]{6}"
+    }
+  ]
+}

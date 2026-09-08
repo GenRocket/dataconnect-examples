@@ -1,0 +1,49 @@
+name: Bug report
+description: Report a reproducible problem in an example or client.
+title: "[Bug]: "
+labels: [bug]
+body:
+  - type: markdown
+    attributes:
+      value: Do not include API keys, JWTs, organization identifiers, or generated sensitive-looking data.
+  - type: dropdown
+    id: language
+    attributes:
+      label: Language
+      options: [Python, Java, .NET, Documentation or contracts]
+    validations:
+      required: true
+  - type: dropdown
+    id: protocol
+    attributes:
+      label: Protocol
+      options: [REST, MCP, Both, Not applicable]
+    validations:
+      required: true
+  - type: textarea
+    id: description
+    attributes:
+      label: What happened?
+      description: Include a minimal request shape with all identifying values replaced.
+    validations:
+      required: true
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Reproduction steps
+    validations:
+      required: true
+  - type: input
+    id: runtime
+    attributes:
+      label: Runtime and operating system
+      placeholder: Python 3.11 on Ubuntu 24.04
+    validations:
+      required: true
+  - type: checkboxes
+    id: safety
+    attributes:
+      label: Safety check
+      options:
+        - label: I removed credentials, JWTs, and identifying organization data.
+          required: true

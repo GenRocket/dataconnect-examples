@@ -1,0 +1,33 @@
+name: Example request
+description: Suggest a reusable DataConnect workflow.
+title: "[Example]: "
+labels: [enhancement, example]
+body:
+  - type: textarea
+    id: use-case
+    attributes:
+      label: Use case
+      description: Describe the client problem this example should help solve.
+    validations:
+      required: true
+  - type: checkboxes
+    id: languages
+    attributes:
+      label: Languages
+      options:
+        - label: Python
+        - label: Java
+        - label: .NET
+  - type: checkboxes
+    id: protocols
+    attributes:
+      label: Protocols
+      options:
+        - label: REST
+        - label: MCP
+  - type: textarea
+    id: outcome
+    attributes:
+      label: Expected outcome
+    validations:
+      required: true
